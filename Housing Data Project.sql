@@ -145,17 +145,15 @@ SET SoldAsVacant = CASE
 
 --------------------------------------------------------------------------------------------------------------------------
 -- Remove Duplicates 
-WITH RowNumCTE as(
-				SELECT *, 
-					ROW_NUMBER() OVER(
-									PARTITION BY ParcelID,
-												PropertyAddress,
-												SalePrice,
-												SaleDate,
-												LegalReference
-													ORDER BY
-														UniqueID
-										) row_num
+WITH RowNumCTE as(SELECT *,ROW_NUMBER()OVER
+		  	(PARTITION BY ParcelID, 
+			 	PropertyAddress,
+				SalePrice,
+				SaleDate,
+				LegalReference
+				ORDER BY
+				UniqueID
+				) row_num
 				From PortfolioProject.dbo.NashvilleHousing
 				)
 SELECT*
